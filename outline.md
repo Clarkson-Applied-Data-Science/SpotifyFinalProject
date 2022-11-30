@@ -1,0 +1,5 @@
+# Nicole Onyia
+## Final Project Outline
+### 7 Years of Nicole Through Music
+
+For my final project for IA626 I will be examining my own personal music streaming history through the Spotify API. I have always loved music, and I’ve been a Spotify user since 2015; So, when I learned there was a public use API, I knew it was what I wanted to base my project on. I have always loved creating playlists, I have them for certain moods, events etc. I have always also made a yearly playlist filled with whatever music was on my constant rotation at the time. I have a dedicated playlist from 2015 – 2022. In this project I will be analyzing each year and comparing them to each other in a variety of categories. I will also try to visualize this data in a way that is personal to me. I really want to be able to analyze my life for the past 7 years, through my musical preferences since music is such a big part of it. 
