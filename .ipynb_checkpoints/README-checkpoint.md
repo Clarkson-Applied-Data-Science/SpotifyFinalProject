@@ -108,22 +108,10 @@ def get_track_id(user,playlist_id):
     playlist = sp.user_playlist(user,playlist_id)
     for item in playlist['tracks']['items']:
         track = item['track']
-        track_id.append(track['id'])
+        track_id.append(get_features(track['id']))
     return track_id
 ```
 
-We then create lists of our playlists, that contain all the track ids in each playlist.
-
-```python
-p2015 = get_track_id("spotify","7eBMr6C6GgyUdphppfsHGG")
-p2016 = get_track_id("spotify","5s30jHYXIa8pqpZ5llc8UW")
-p2017 = get_track_id("spotify","0y3DRV98utNLVxPkFUHr60")
-p2018 = get_track_id("spotify","4oICEU7lJwh5B1bi11Fl81")
-p2019 = get_track_id("spotify","0A6Mf0tkJTZyvoMBq29dzP")
-p2020 = get_track_id("spotify","1LNWFkUgYkCcqhjl1zArEJ")
-p2021 = get_track_id("spotify","2my6pETpT9mbvgUmbbE123")
-p2022 = get_track_id("spotify","08hpQsg5CMFiO8zngrxBwm")
-```
 
 Next we create another function that will extract all the related information about each song in the playlist.
 
@@ -133,7 +121,6 @@ def get_features(id):
     features_info = sp.audio_features(id)
     
     #song information
-    
     name = track_info['name']
     album = track_info['album']['name']
     artist = track_info['album']['artists'][0]['name']
@@ -156,21 +143,27 @@ def get_features(id):
     track_data = [name, album, artist, release_date, duration, popularity, acousticness,
                   danceability, energy, instrumentalness, liveness, loudness, speechiness, tempo, time_signature]
     return track_data
-    
 ```
 
 Then we take this information and put it into a dataframe. Spotify has a limit on the number of executions you're allowed to run at once, so we use the time.sleep() function to create a delay, that prevents too many requests at once.
 
+We combine all the playlist data into one data frame, and add an additional column called "Year" to differentiate the data. We then save it to a csv file, so we no longer need to refresh the tocken every hour.
+
 ```python
-track_list_2015 = []
-for i in range(len(p2015)):
-    time.sleep(.3)
-    track_data = get_features(p2015[i])
-    track_list_2015.append(track_data)
     
-playlist_2015 = pd.DataFrame(track_list_2015, columns = ['Title', 'Album', 'Artist', 'Release_Date', 'Duration', 'Popularity', 'Acousticness',
+playlist = pd.DataFrame(columns = ['Year','Title', 'Album', 'Artist', 'Release_Date', 'Duration', 'Popularity', 'Acousticness',
                   'Danceability', 'Energy', 'Instrumentalness', 'Liveness', 'Loudness', 'Speechiness','Tempo', 'Time_Signature'])
-playlist_2015.head(3)
+
+for year, uri in playlist_uri.items():
+    time.sleep(.3)
+    track_list = get_track_id("spotify",uri)
+    yoyplaylist = pd.DataFrame(track_list, columns = ['Title', 'Album', 'Artist', 'Release_Date', 'Duration', 'Popularity', 'Acousticness',
+                  'Danceability', 'Energy', 'Instrumentalness', 'Liveness', 'Loudness', 'Speechiness','Tempo', 'Time_Signature'])
+    yoyplaylist['Year'] = year[-4:]
+    playlist = pd.concat([playlist,yoyplaylist])
+
+playlist.head(3)
+
 ```
 
 Here is a sample of our dataframe
@@ -178,4 +171,36 @@ Here is a sample of our dataframe
 ![image](images/dataframe.png)
 
 
-Now we do this for all of our 7 playlists.
+Next step is to repeat the process, but with the playlists curated by spotify that looks at the top songs from each year. The plan is to compare my music through the years with what was trending at the time. We simply use the functions we defined earliear on a new disctionary containing the URI's for the curated playlists instead.
+
+Curated Spotify Playlists:
+
+```python
+playlist_spot = {
+ "sp2015" : "37i9dQZF1DX9ukdrXQLJGZ",
+ "sp2016" : "37i9dQZF1DX8XZ6AUo9R4R",
+ "sp2017" : "37i9dQZF1DWTE7dVUebpUW",
+ "sp2018" : "37i9dQZF1DXe2bobNYDtW8",
+ "sp2019" : "37i9dQZF1DWVRSukIED0e9",
+ "sp2020" : "2fmTTbBkXi8pewbUvG3CeZ",
+ "sp2021" : "5GhQiRkGuqzpWZSE7OU4Se",
+ "sp2022" : "08hpQsg5CMFiO8zngrxBwm"
+}
+```
+
+```python
+playlist2 = pd.DataFrame(columns = ['Year','Title', 'Album', 'Artist', 'Release_Date', 'Duration', 'Popularity', 'Acousticness',
+                  'Danceability', 'Energy', 'Instrumentalness', 'Liveness', 'Loudness', 'Speechiness','Tempo', 'Time_Signature'])
+
+for year, uri in playlist_spot.items():
+    time.sleep(.3)
+    track_list = get_track_id("spotify",uri)
+    yplaylist = pd.DataFrame(track_list, columns = ['Title', 'Album', 'Artist', 'Release_Date', 'Duration', 'Popularity', 'Acousticness',
+                  'Danceability', 'Energy', 'Instrumentalness', 'Liveness', 'Loudness', 'Speechiness','Tempo', 'Time_Signature'])
+    yplaylist['Year'] = year[-4:]
+    playlist2 = pd.concat([playlist2,yplaylist])
+
+playlist2.head(3)
+```
+
+Now that we have our data we can start exploring it, and creating data visualization. 
