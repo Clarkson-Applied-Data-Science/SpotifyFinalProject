@@ -245,13 +245,14 @@ I think these variables are good indicators of the mood of music. So I want to s
 
 I can cut and slice this data a million different ways but from what I've done I can atleast say my music taste differs from the mainstream top hits on spotify which makes me feel cool.
 
+
 Appendix of Python Packages:
 
-Spotify API - Spotipy
-urllib
-oauth2
-pandas
-numpy
-matplotlib
-seaborn
-plotly
+- Spotify API - Spotipy
+- urllib
+- oauth2
+- pandas
+- numpy
+- matplotlib
+- seaborn
+- plotly
