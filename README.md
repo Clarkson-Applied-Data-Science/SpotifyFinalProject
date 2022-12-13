@@ -184,7 +184,7 @@ playlist_spot = {
  "sp2019" : "37i9dQZF1DWVRSukIED0e9",
  "sp2020" : "2fmTTbBkXi8pewbUvG3CeZ",
  "sp2021" : "5GhQiRkGuqzpWZSE7OU4Se",
- "sp2022" : "08hpQsg5CMFiO8zngrxBwm"
+ "sp2022" : "37i9dQZF1DXcBWIGoYBM5M"
 }
 ```
 
@@ -205,4 +205,35 @@ playlist2.head(3)
 
 Now that we have our data we can start exploring it, and creating data visualization. 
 
-Starting with the popularity category, from the spotify endpoint refernce we know this is measured on a scale of 0 - 100, and is based on total number of plays the track has had and how recent those plays are. We can get the average popularity score for my yearly playlists and look at that compared to spotify's
+Starting with the popularity category, from the spotify endpoint refernce we know this is measured on a scale of 0 - 100, and is based on total number of plays the track has had and how recent those plays are. We can get the average popularity score for my yearly playlists and look at that compared to spotify's.
+
+![image](images/popchart.png)
+
+No surprise that the average popularity scores for the spotify top hits playlists are alot higher than mine. There alot of cool audio features each song that we can play with as well. 
+
+First I want to see what audio features correlate with popularity, simply because I'm curious and it will help guide me towards the data I would like to visualize. 
+
+![image](images/myfeats.png)
+![image](images/spotfeats.png)
+
+The audio features for my music and spotify's follow the same correlation pattern. It makes sense that acousticness and energy would have the strongest negative relationship followed by acouticness and loudness. Then loudness and energy have the highest postive relationship. 
+
+![image](images/mydance.png)
+![image](images/spotdance.png)
+
+I created a scatterplot that looks at Danceability using Loudness vs Energy for both my music and spotify's music. It seems with spotify's music the level of danceability is higher. 
+
+According to Spotify:
+
+ - Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy.
+
+ - Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. 
+
+ - Tempo is the overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.
+
+- Instrumentalness predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". 
+
+I think these variables are good indicators of the mood of music. So I want to see how the graphs over time.
+
+![image](images/mymood.png)
+![image](images/spotmood.png)
