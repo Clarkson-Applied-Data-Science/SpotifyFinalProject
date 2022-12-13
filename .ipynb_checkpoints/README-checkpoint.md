@@ -216,6 +216,11 @@ First I want to see what audio features correlate with popularity, simply becaus
 ![image](images/myfeats.png)
 ![image](images/spotfeats.png)
 
+Looking at a histogram of all music popularity, it makes sense why mine is more spread out in terms of popularity. Seeing as the main point of the spotify playlist is that all the music there is popular. I'm not gonna lie I can listen to some pretty weird stuff so all the low popularity numbers make sense for me. 
+
+![image](images/mypop.png)
+![image](images/spotpop.png)
+
 The audio features for my music and spotify's follow the same correlation pattern. It makes sense that acousticness and energy would have the strongest negative relationship followed by acouticness and loudness. Then loudness and energy have the highest postive relationship. 
 
 ![image](images/mydance.png)
@@ -237,3 +242,16 @@ I think these variables are good indicators of the mood of music. So I want to s
 
 ![image](images/mymood.png)
 ![image](images/spotmood.png)
+
+I can cut and slice this data a million different ways but from what I've done I can atleast say my music taste differs from the mainstream top hits on spotify which makes me feel cool.
+
+Appendix of Python Packages:
+
+Spotify API - Spotipy
+urllib
+oauth2
+pandas
+numpy
+matplotlib
+seaborn
+plotly
